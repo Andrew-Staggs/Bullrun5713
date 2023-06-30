@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FBag4pDANnAMkur8b/D6vCt1CXmNZDMbNOtwdx6n0GLOU9LPD+bcMRe8EHXMDSTPX1CaDvmauXHc8NqXnJmvcQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Student\\Documents\\Personal Projects\\Bullrun5713\\NutrionLookupApp\\NutritionReverseLookupAppDemo\\NutritionReverseLookupAppDemo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Student\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
+  ],
+  "logs": []
+}

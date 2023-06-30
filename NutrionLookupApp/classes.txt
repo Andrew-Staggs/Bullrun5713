@@ -1,0 +1,15 @@
+classes:
+
+
+restaurant (restuarant name, list of MenuItems)
+restaurants (list of restaurants)
+MenuItem (houses nutrional data for each restaurant dish)
+Geolocation (user location, restaurant name, distanceToClosestRestaurant)
+
+user process:
+
+user enters calorie and/or nutrition paramaters
+user enteres their current location 
+
+display: 
+the UI displays the following - restaurant name, dish name, serving size, nutrition info (list specified by user), location (relative to them), 
