@@ -8,6 +8,11 @@ namespace NutritionReverseLookupAppDemo.Models
     { // shows list of restaurants
         public List<Restaurant> ListOfRestaurants { get; }
 
+        public Restaurants()
 
+        {
+
+
+        }
     }
 }
