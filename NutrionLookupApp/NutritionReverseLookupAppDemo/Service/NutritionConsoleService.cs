@@ -76,15 +76,7 @@ namespace NutritionReverseLookupAppDemo.Service
 
         }
 
-        public List<MenuItem> MenuItemsByNutrition()
-        {
-            
-
-            
-            //returns menu items by nutrition 
-
-
-        }
+      
 
     }
 }
