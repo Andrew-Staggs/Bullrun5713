@@ -37,7 +37,8 @@ namespace NutritionReverseLookupAppDemo.Service
             Console.WriteLine("6: Add Gluten Free to search");
             Console.WriteLine("7: Add Sodium to search");
             Console.WriteLine("8: Add Protien to search");
-
+            Console.WriteLine("9: run nutrition search");
+            Console.WriteLine("0: Back to main menu");
         }
 
         public void RestaurantSubMenu()
@@ -72,11 +73,36 @@ namespace NutritionReverseLookupAppDemo.Service
                 PrintError($"Number is out of range, please try again.");
             }
 
-            
+
 
         }
 
-      
+        public void PrintMenuItemsToConsole(MenuItems menuItems)
+        {
+
+            const int Width = -10;
+            for (int i = 0; i < menuItems.PopulatedMenuItems.Count; i++)
+            {
+
+                Console.WriteLine($"{menuItems.PopulatedMenuItems[i].RestaurantName,Width} {menuItems.PopulatedMenuItems[i].ItemName,Width * 2} {menuItems.PopulatedMenuItems[i].ItemNutritionInfo.Calories,Width} {menuItems.PopulatedMenuItems[i].ItemNutritionInfo.Sugar, Width} \n");
+
+            }
+
+
+
+        }
+
+        public void BackToMainMenu()
+        {
+
+
+        }
+
+        public void ExitProgram()
+        {
+
+
+        }
 
     }
 }

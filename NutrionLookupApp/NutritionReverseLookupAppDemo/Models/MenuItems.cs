@@ -1,24 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NutritionReverseLookupAppDemo.Models
 {
     public class MenuItems
     {
-       
-        public List<MenuItem> PopulatedMenuItems = new List<MenuItem>(); 
+
+        public List<MenuItem> PopulatedMenuItems = new List<MenuItem>();
 
         public MenuItems()
         {
 
-                
+
         }
         public MenuItems(List<MenuItem> menuItems)
         {
 
             PopulatedMenuItems = menuItems;
-            
+
+        }
+
+        public List<MenuItem> RemoveMenuItem(MenuItem itemToRemove)
+        {
+
+            List<MenuItem> updatedMenuItems = PopulatedMenuItems;
+
+            for (int i = 0; i < updatedMenuItems.Count; i++)
+
+            {
+                if (updatedMenuItems[i] == itemToRemove)
+                {
+                    updatedMenuItems.RemoveAt(i);
+
+                }
+
+            }
+
+            return updatedMenuItems;
+
         }
 
         /// <summary>
@@ -26,43 +47,42 @@ namespace NutritionReverseLookupAppDemo.Models
         /// </summary>
         /// <param name="calories"></param>
         /// <returns></returns>
-        public List<MenuItem> MenuItemsByCalories(double? calories, List<MenuItem> menuItems)
+        public MenuItems MenuItemsByCalories(double? calories, MenuItems menuItems)
         {
-            List<MenuItem> updatedItemsByCalories = new List<MenuItem>();
-            foreach (MenuItem item in menuItems)
-            {
-                if (item.ItemNutritionInfo.Calories <= calories)
-                {
-                    //add to list of menu items
-                    updatedItemsByCalories.Add(item);
+            MenuItems updatedItems = menuItems;
 
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+            {
+                if (PopulatedMenuItems[j].ItemNutritionInfo.Calories >= calories)
+                {
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
                 }
+
+                //add to list of menu items
 
 
             }
 
-            return updatedItemsByCalories;
-
+            return updatedItems;
         }
 
-        public List<MenuItem> MenuItemsBySugar(double? sugar, List<MenuItem> menuItems)
+        public MenuItems MenuItemsBySugar(double? sugar, MenuItems menuItems)
         {
-            List<MenuItem> updatedItemsBySugar = new List<MenuItem>();
+            MenuItems updatedItems = menuItems;
 
-            foreach (MenuItem item in menuItems)
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
             {
-                if (sugar <= item.ItemNutritionInfo.Sugar)
+                if (PopulatedMenuItems[j].ItemNutritionInfo.Sugar >= sugar)
                 {
-                    //add to list of menu items
-                    updatedItemsBySugar.Add(item);
-
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
                 }
+
+                //add to list of menu items
 
 
             }
 
-            return updatedItemsBySugar;
-
+            return updatedItems;
         }
 
         public List<MenuItem> MenuItemsBySodium(double? sodium, List<MenuItem> menuItems)
@@ -181,46 +201,46 @@ namespace NutritionReverseLookupAppDemo.Models
         /// <param name="nutritionSelections"></param>
         /// <param name="menuItems"></param>
         /// <returns></returns>
-        public List<MenuItem> MenuItemsByNutrition(Nutrition nutritionSelections, List<MenuItem> menuItems)
+        public MenuItems MenuItemsByNutrition(Nutrition nutritionSelections, MenuItems menuItems)
         {
-            List<MenuItem> filteredMenuItems = new List<MenuItem>();
+            MenuItems filteredMenuItems = menuItems;
 
             if (nutritionSelections.Calories != null)
             {
 
-                filteredMenuItems = MenuItemsByCalories(nutritionSelections.Calories, menuItems);
+                filteredMenuItems = MenuItemsByCalories(nutritionSelections.Calories, filteredMenuItems);
 
             }
 
 
-            if (nutritionSelections.Sodium != null)
-            {
+            //if (nutritionSelections.Sodium != null)
+            //{
 
-                filteredMenuItems = MenuItemsBySodium(nutritionSelections.Sodium, menuItems);
+            //    filteredMenuItems = MenuItemsBySodium(nutritionSelections.Sodium, filteredMenuItems);
 
-            }
+            //}
 
             if (nutritionSelections.Sugar != null)
             {
 
-                filteredMenuItems = MenuItemsBySugar(nutritionSelections.Sugar, menuItems);
+                filteredMenuItems = MenuItemsBySugar(nutritionSelections.Sugar, filteredMenuItems);
 
             }
 
-            if (nutritionSelections.Protien != null)
-            {
+            //if (nutritionSelections.Protien != null)
+            //{
 
-                filteredMenuItems = MenuItemsByProtien(nutritionSelections.Protien, menuItems);
+            //    filteredMenuItems = MenuItemsByProtien(nutritionSelections.Protien, filteredMenuItems);
 
-            }
+            //}
 
-            if (nutritionSelections.IsGlutenFree)
-            {
+            //if (nutritionSelections.IsGlutenFree)
+            //{
 
-                filteredMenuItems = MenuItemsByIsGlutenFree(nutritionSelections.IsGlutenFree, menuItems);
+            //    filteredMenuItems = MenuItemsByIsGlutenFree(nutritionSelections.IsGlutenFree, filteredMenuItems);
 
 
-            }
+            //}
 
             return filteredMenuItems;
 

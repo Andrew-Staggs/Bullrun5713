@@ -19,7 +19,7 @@ namespace NutritionReverseLookupAppDemo.Models
 
         public double? TotalCarbohydrates { get; }
 
-        public double? Sugar { get; }
+        public double? Sugar { get; set; }
 
         public double? Protien { get; }
 

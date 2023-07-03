@@ -23,6 +23,8 @@ namespace NutritionReverseLookupAppDemo
         }
         NutritionConsoleService nutritionConsoleService = new NutritionConsoleService();
         ConsoleService consoleService = new ConsoleService();
+
+
         public void Run()
         {
             //test menu and test data at project start
@@ -34,16 +36,17 @@ namespace NutritionReverseLookupAppDemo
             MenuItem item2 = new MenuItem("McDonalds", "Milkshake", milkshakeMcd);
             MenuItem item3 = new MenuItem("Bob Evans", "Orange Juice", OrangeJuiceBobEvans);
 
-           
-            List<MenuItem> testMenuList = new List<MenuItem>();
-                testMenuList.Add(item1);
-                testMenuList.Add(item2);
-                testMenuList.Add(item3);
 
-            MenuItems menuItemsTest = new MenuItems(testMenuList); 
+            List<MenuItem> testMenuList = new List<MenuItem>();
+            testMenuList.Add(item1);
+            testMenuList.Add(item2);
+            testMenuList.Add(item3);
+
+            MenuItems menuItemsTest = new MenuItems(testMenuList);
             //end test data
 
             bool isTrue = true;
+
 
             while (isTrue)
 
@@ -91,17 +94,20 @@ namespace NutritionReverseLookupAppDemo
 
             }
 
+
+
             bool subIstrue = true;
 
-            while (subIstrue)
+            while (subIstrue) // needs to be in method so it can loop back to the main menu
 
             {
                 nutritionConsoleService.NutritionInfoSubMenu();
 
 
-                int menuSelection = nutritionConsoleService.PromptForInteger("Please choose an option", 0, 7);
+                int menuSelection = nutritionConsoleService.PromptForInteger("Please choose an option", 0, 9);
                 Nutrition userNutrition = new Nutrition();
-
+                MenuItems menuItems = new MenuItems();
+                menuItems.PopulatedMenuItems = new List<MenuItem>();
 
 
                 if (menuSelection == 1) //make sure to move console code to console service
@@ -111,22 +117,50 @@ namespace NutritionReverseLookupAppDemo
                     userNutrition.Calories = int.Parse(Console.ReadLine());
                     Console.WriteLine("");
 
-                    const int Width = -10;
+                    menuItems = menuItemsTest.MenuItemsByNutrition(userNutrition, menuItemsTest);
 
-                    List<MenuItem> items =  menuItemsTest.MenuItemsByNutrition(userNutrition, testMenuList);
 
-                    for (int i = 0; i < items.Count; i++)
-                    {
+                    menuSelection = nutritionConsoleService.PromptForInteger("Please choose an option", 0, 9);
 
-                        Console.WriteLine($"{items[i].RestaurantName, Width} {items[i].ItemName,Width*2} {items[i].ItemNutritionInfo.Calories, Width}\n");
+                }
 
-                    }
-                    
+                if (menuSelection == 2)
+
+                {
+                    Console.Write("please enter sugar in grams: ");
+                    userNutrition.Sugar = int.Parse(Console.ReadLine());
+                    Console.WriteLine("");
+
+                    menuItems = menuItemsTest.MenuItemsByNutrition(userNutrition, menuItemsTest);
+
+
+                    menuSelection = nutritionConsoleService.PromptForInteger("Please choose an option", 0, 9);
+                }
+
+
+                if (menuSelection == 9)
+
+                {
+
+
+                    nutritionConsoleService.PrintMenuItemsToConsole(menuItems);
+
+
+                }
+
+                if (menuSelection == 0)
+                {
+                    subIstrue = false;
+
 
                 }
 
 
+
+
+
             }
+
 
 
         }
