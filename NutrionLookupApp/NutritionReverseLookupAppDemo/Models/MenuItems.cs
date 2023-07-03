@@ -85,109 +85,148 @@ namespace NutritionReverseLookupAppDemo.Models
             return updatedItems;
         }
 
-        public List<MenuItem> MenuItemsBySodium(double? sodium, List<MenuItem> menuItems)
+        public MenuItems MenuItemsBySodium(double? sodium, MenuItems menuItems)
         {
 
-            foreach (MenuItem item in menuItems)
-            {
-                if (sodium <= item.ItemNutritionInfo.Sodium)
-                {
-                    //add to list of menu items
-                    menuItems.Add(item);
+            MenuItems updatedItems = menuItems;
 
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+            {
+                if (PopulatedMenuItems[j].ItemNutritionInfo.Sodium >= sodium)
+                {
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
                 }
+
+                //add to list of menu items
 
 
             }
 
-            return menuItems;
+            return updatedItems;
         }
 
-        public List<MenuItem> MenuItemsByProtien(double? protien, List<MenuItem> menuItems)
+        public MenuItems MenuItemsByProtien(double? protien, MenuItems menuItems)
         {
 
-            foreach (MenuItem item in menuItems)
-            {
-                if (protien <= item.ItemNutritionInfo.Protien)
-                {
-                    //add to list of menu items
-                    menuItems.Add(item);
+            MenuItems updatedItems = menuItems;
 
+            bool reset = true;
+            
+
+            while (reset)
+            {
+                bool hasOccured = false;
+
+
+                for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+                {
+                   
+                    if (PopulatedMenuItems[j].ItemNutritionInfo.Protien >= protien)
+                    {
+                        updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
+                        hasOccured = true;
+                        j = menuItems.PopulatedMenuItems.Count - 1; 
+                    }
+
+                   
+                    //add to list of menu items
                 }
 
+                if (!hasOccured)
+                {
+                    reset = false;
+
+                }
             }
 
-            return menuItems;
+            return updatedItems;
         }
 
-        public List<MenuItem> MenuItemsBySaturatedFat(double? saturatedFat, List<MenuItem> menuItems)
+        public MenuItems MenuItemsBySaturatedFat(double? saturatedFat, MenuItems menuItems)
         {
 
-            foreach (MenuItem item in menuItems)
-            {
-                if (saturatedFat <= item.ItemNutritionInfo.SaturatedFat)
-                {
-                    //add to list of menu items
-                    menuItems.Add(item);
+            MenuItems updatedItems = menuItems;
 
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+            {
+                if (PopulatedMenuItems[j].ItemNutritionInfo.SaturatedFat >= saturatedFat)
+                {
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
                 }
+
+                //add to list of menu items
+
 
             }
 
-            return menuItems;
+            return updatedItems;
         }
 
-        public List<MenuItem> MenuItemsByTotalFat(double? totalFat, List<MenuItem> menuItems)
+        public MenuItems MenuItemsByTotalFat(double? totalFat, MenuItems menuItems)
         {
 
-            foreach (MenuItem item in menuItems)
-            {
-                if (totalFat <= item.ItemNutritionInfo.TotalFat)
-                {
-                    //add to list of menu items
-                    menuItems.Add(item);
 
+            MenuItems updatedItems = menuItems;
+
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+            {
+                if (PopulatedMenuItems[j].ItemNutritionInfo.TotalFat >= totalFat)
+                {
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
                 }
+
+                //add to list of menu items
+
 
             }
 
-            return menuItems;
-        }
-
-
-        public List<MenuItem> MenuItemsByCarbohydrates(double? carbohydrates, List<MenuItem> menuItems)
-        {
-
-            foreach (MenuItem item in menuItems)
-            {
-                if (carbohydrates <= item.ItemNutritionInfo.TotalCarbohydrates)
-                {
-                    //add to list of menu items
-                    menuItems.Add(item);
-
-                }
-
-            }
-
-            return menuItems;
+            return updatedItems;
         }
 
 
-        public List<MenuItem> MenuItemsByIsGlutenFree(bool isGlutenFree, List<MenuItem> menuItems)
+        public MenuItems MenuItemsByCarbohydrates(double? carbohydrates, MenuItems menuItems)
         {
 
-            foreach (MenuItem item in menuItems)
-            {
-                if (isGlutenFree)
-                {
-                    //add to list of menu items
-                    menuItems.Add(item);
+            MenuItems updatedItems = menuItems;
 
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+            {
+                if (PopulatedMenuItems[j].ItemNutritionInfo.TotalCarbohydrates >= carbohydrates)
+                {
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
                 }
+
+                //add to list of menu items
+
 
             }
 
-            return menuItems;
+            return updatedItems;
+        }
+
+
+        public MenuItems MenuItemsByIsGlutenFree(bool isGlutenFree, MenuItems menuItems)
+        {
+
+            MenuItems updatedItems = menuItems;
+
+            for (int j = 0; j < menuItems.PopulatedMenuItems.Count; j++)
+            {
+                if (PopulatedMenuItems[j].ItemNutritionInfo.IsGlutenFree != isGlutenFree) //removed item if not gluten free
+                {
+                    updatedItems.RemoveMenuItem(PopulatedMenuItems[j]);
+                }
+
+
+
+                //add to list of menu items
+
+
+            }
+
+            return updatedItems;
+
+
         }
         /// <summary>
         ///  returns a list of menu items that meets all user search parameters. Filters the list of 
@@ -213,12 +252,12 @@ namespace NutritionReverseLookupAppDemo.Models
             }
 
 
-            //if (nutritionSelections.Sodium != null)
-            //{
+            if (nutritionSelections.Sodium != null)
+            {
 
-            //    filteredMenuItems = MenuItemsBySodium(nutritionSelections.Sodium, filteredMenuItems);
+                filteredMenuItems = MenuItemsBySodium(nutritionSelections.Sodium, filteredMenuItems);
 
-            //}
+            }
 
             if (nutritionSelections.Sugar != null)
             {
@@ -227,20 +266,41 @@ namespace NutritionReverseLookupAppDemo.Models
 
             }
 
-            //if (nutritionSelections.Protien != null)
-            //{
+            if (nutritionSelections.Protien != null)
+            {
 
-            //    filteredMenuItems = MenuItemsByProtien(nutritionSelections.Protien, filteredMenuItems);
+                filteredMenuItems = MenuItemsByProtien(nutritionSelections.Protien, filteredMenuItems);
 
-            //}
+            }
 
-            //if (nutritionSelections.IsGlutenFree)
-            //{
+            if (nutritionSelections.TotalFat != null)
+            {
 
-            //    filteredMenuItems = MenuItemsByIsGlutenFree(nutritionSelections.IsGlutenFree, filteredMenuItems);
+                filteredMenuItems = MenuItemsByProtien(nutritionSelections.TotalFat, filteredMenuItems);
+
+            }
+
+            if (nutritionSelections.SaturatedFat != null)
+            {
+
+                filteredMenuItems = MenuItemsByProtien(nutritionSelections.SaturatedFat, filteredMenuItems);
+
+            }
+
+            if (nutritionSelections.TotalCarbohydrates != null)
+            {
+
+                filteredMenuItems = MenuItemsByProtien(nutritionSelections.TotalCarbohydrates, filteredMenuItems);
+
+            }
+
+            if (nutritionSelections.IsGlutenFree)
+            {
+
+                filteredMenuItems = MenuItemsByIsGlutenFree(nutritionSelections.IsGlutenFree, filteredMenuItems);
 
 
-            //}
+            }
 
             return filteredMenuItems;
 

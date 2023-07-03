@@ -12,18 +12,18 @@ namespace NutritionReverseLookupAppDemo.Models
         public double ServingSize { get; set; }
         //not sure if servingsize should have a set
 
-        public double? SaturatedFat { get; }
+        public double? SaturatedFat { get; set; }
 
-        public double? TotalFat { get; }
-        public double? Sodium { get; }
+        public double? TotalFat { get; set; }
+        public double? Sodium { get; set; }
 
-        public double? TotalCarbohydrates { get; }
+        public double? TotalCarbohydrates { get; set; }
 
         public double? Sugar { get; set; }
 
-        public double? Protien { get; }
+        public double? Protien { get; set; }
 
-        public bool IsGlutenFree { get; }
+        public bool IsGlutenFree { get; set; }
 
         //below is calories for single serving.
         public double? Calories { get; set; }

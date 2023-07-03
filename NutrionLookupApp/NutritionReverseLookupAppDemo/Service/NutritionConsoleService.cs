@@ -34,10 +34,11 @@ namespace NutritionReverseLookupAppDemo.Service
             Console.WriteLine("3: Add Carbohydrates to search");
             Console.WriteLine("4: Add Total Fat to search");
             Console.WriteLine("5: Add Saturated Fat to search");
-            Console.WriteLine("6: Add Gluten Free to search");
+            Console.WriteLine("6: Add Protien to search");
             Console.WriteLine("7: Add Sodium to search");
-            Console.WriteLine("8: Add Protien to search");
+            Console.WriteLine("8: Add Gluten Free to search");
             Console.WriteLine("9: run nutrition search");
+            Console.WriteLine("10: reset nutrition search");
             Console.WriteLine("0: Back to main menu");
         }
 
@@ -65,10 +66,14 @@ namespace NutritionReverseLookupAppDemo.Service
                     return defaultValue.Value;
                 }
 
+
+
                 if (int.TryParse(input, out int selection) && selection >= minimum && selection <= maximum)
                 {
                     return selection;
                 }
+
+              
 
                 PrintError($"Number is out of range, please try again.");
             }
@@ -94,6 +99,7 @@ namespace NutritionReverseLookupAppDemo.Service
 
         public void BackToMainMenu()
         {
+
 
 
         }
